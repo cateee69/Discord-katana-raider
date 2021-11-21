@@ -9,5 +9,5 @@ You gonna need some tokens.</p>
 <img src="dc_ch.jpg" alt="Photo!" ></p>
 
 </p>Preveiew
-<img src="Rai_ex.jpg" alt="Photo!" ></p>
+<img src="Raid_ex.jpg" alt="Photo!" ></p>
 
