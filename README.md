@@ -5,4 +5,5 @@ Easy way to raid a discord server.
 <p>What i need to raid server?!?!?!<br>
 You gonna need some tokens.</p>
 <p>Invite code ONLY CODE! EX -> https://discord.gg/NeverGonnaGiveUp To -> <strong>NeverGonnaGiveUp</strong>.<br>
-Chanel id<img src="dc_ch.jpg" alt="Photo!" width="500" height="333"></p>
+</p>Chanel id
+<img src="dc_ch.jpg" alt="Photo!" ></p>
