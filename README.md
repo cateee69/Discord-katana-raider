@@ -10,4 +10,4 @@ You gonna need some tokens.</p>
 
 </p>Preveiew
 <img src="Raid_ex.jpg" alt="Photo!" ></p>
-
+</p>Too Slow? remove 105 line in main.py
