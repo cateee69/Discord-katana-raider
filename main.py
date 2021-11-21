@@ -63,7 +63,7 @@ def main(): #main loop
     global tokens_list
 
     for tokens in tokens_list:
-
+        tokens_list.remove(tokens)
         try:
             token = tokens
             cookies = get_cookies()
@@ -103,11 +103,11 @@ def main(): #main loop
             print(r.reason)
             print(r.text.replace("{", "").replace('"', '').replace(":", "").replace("}", ""))
         time.sleep(random.randint(1, 3))
-main()
-# working = []
-# for _ in range(len(all)):
-#     t1 = threading.Thread(target=main)
-#     t1.start()
-#     working.append(t1)
-# for thread in working:
-#     thread.join()
+
+working = []
+for _ in range(len(all)):
+    t1 = threading.Thread(target=main)
+    t1.start()
+    working.append(t1)
+for thread in working:
+    thread.join()
