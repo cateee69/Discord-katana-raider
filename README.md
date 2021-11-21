@@ -11,3 +11,7 @@ You gonna need some tokens.</p>
 </p>Preveiew
 <img src="Raid_ex.jpg" alt="Photo!" ></p>
 </p>Too Slow? remove 105 line in main.py
+
+
+Contact</p>
+<img src="https://discord.c99.nl/widget/theme-4/488671081591472129.png" alt="Photo!" ></p>
