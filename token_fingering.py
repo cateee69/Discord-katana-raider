@@ -6,8 +6,7 @@ def get_fingerprint():
     header = {
             "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) discord/0.0.16 Chrome/91.0.4472.164 Electron/13.4.0 Safari/537.36"
         }
-    fingerprint = requests.get(url, headers=header).json()["fingerprint"]
-    return fingerprint
+    return requests.get(url, headers=header).json()["fingerprint"]
 
 # time.sleep(0.01)
 # f1 = open("tokens unready.txt", "a+")

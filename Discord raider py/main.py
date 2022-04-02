@@ -39,7 +39,7 @@ while True:
         print("[+]Created Token Folder")
         time.sleep(1)
         clearConsole()
-    
+
 all = f.readlines()
 
 inviteCode = input("Invite code ONLY CODE >")
@@ -49,7 +49,7 @@ if message != "":
     channelid = input("chanel id > ")
     send = True
 
-url = "https://discord.com/api/v9/invites/" + inviteCode
+url = f"https://discord.com/api/v9/invites/{inviteCode}"
 guild_name = requests.get(url).json()
 guild_name = guild_name["guild"]["name"]
 tokens_list = []
@@ -91,7 +91,7 @@ def main(): #main loop
                 "x-fingerprint": finger
             }
             if send:
-                for i in range(10):
+                for _ in range(10):
                     x = requests.post(f"https://discordapp.com/api/v9/channels/{channelid}/messages", headers=headers, json={'content': message})
                     if x.status_code == 200:
                         print(f"\u001b[32;1m[+] Succes sent message '{message}' to {guild_name}\u001b[0m")
@@ -99,7 +99,7 @@ def main(): #main loop
         elif "rate limited." in r.text:
             print("[-] You are being rate limited.")
         else:
-            print(f"\u001b[31m[-] Invalid Token.\u001b[0m")
+            print("\\u001b[31m[-] Invalid Token.\\u001b[0m")
             print(r.reason)
             print(r.text.replace("{", "").replace('"', '').replace(":", "").replace("}", ""))
         time.sleep(random.randint(1, 3))
