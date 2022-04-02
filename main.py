@@ -39,31 +39,30 @@ def get_proxies():
 
 def GetGuildName(inviteCode):
     global fail
-    if not fail:
-        url = "https://discord.com/api/v9/invites/" + inviteCode
-        guild_name = requests.get(url).json()
-        try:
-            guild_name = guild_name["guild"]["name"]
-            message = guild_name
-        except:
-            print(f"\u001b[31m[-] Failed To Resolve Invite.\u001b[0m")
-            message = "Unknown Name"
-            fail = True
-            return message
-        return message
-    else:
+    if fail:
         return "Unknown name"
+    url = f"https://discord.com/api/v9/invites/{inviteCode}"
+    guild_name = requests.get(url).json()
+    try:
+        guild_name = guild_name["guild"]["name"]
+        message = guild_name
+    except:
+        print("\\u001b[31m[-] Failed To Resolve Invite.\\u001b[0m")
+        message = "Unknown Name"
+        fail = True
+        return message
+    return message
 
 
 
 def SendMessages(amount, proxy_pool, channelid, guild_name, message, headers):
     global proxy
-    for i in range(amount-1):
+    for _ in range(amount-1):
         try:
             x = requests.post(f"https://discordapp.com/api/v9/channels/{channelid}/messages", headers=headers, json={'content': message, "tts": "false"}, proxies={'https://':"http://"+proxy})
         except Exception as e:
             proxy = next(proxy_pool)
-            print(f"\u001b[31m[-] Invalid Proxy.\u001b[0m" + str(e))
+            print(f"\\u001b[31m[-] Invalid Proxy.\\u001b[0m{str(e)}")
             continue
         if x.status_code == 200:
             print(f"\u001b[32;1m[+] Succes sent message '{message}' to {guild_name}\u001b[0m")
@@ -73,7 +72,7 @@ def SendMessages(amount, proxy_pool, channelid, guild_name, message, headers):
             print("\u001b[31m[-] You are being rate limited.\u001b[0m")
             time.sleep(3)
         else:
-            print(f"\u001b[31m[-] Invalid Token.\u001b[0m" + str(e))
+            print(f"\\u001b[31m[-] Invalid Token.\\u001b[0m{str(e)}")
 
 
 
@@ -86,7 +85,7 @@ def JoinGuild(proxy_pool, guild_name, headers, url):
             break
         except Exception as e:
             proxy = next(proxy_pool)
-            print(f"\u001b[31m[-] Invalid Token.\u001b[0m" + str(e))
+            print(f"\\u001b[31m[-] Invalid Token.\\u001b[0m{str(e)}")
             continue
     if r.status_code == 200:
         print(f"\u001b[32;1m[+] Joined {guild_name}\u001b[0m")
@@ -159,19 +158,9 @@ def main(): #main loop
             SendMessages(amount=amount, proxy_pool=proxy_pool, channelid=channelid, guild_name=guild_name, message=message, headers=headers)
 def menu():
     global inviteCode, message, amount, channelid, Join, Spam, guild_name, url
-    logo = f"""\u001b[95m
-        ██╗  ██╗ █████╗ ████████╗ █████╗ ███╗   ██╗ █████╗ 
-        ██║ ██╔╝██╔══██╗╚══██╔══╝██╔══██╗████╗  ██║██╔══██╗
-        █████╔╝ ███████║   ██║   ███████║██╔██╗ ██║███████║
-        ██╔═██╗ ██╔══██║   ██║   ██╔══██║██║╚██╗██║██╔══██║
-        ██║  ██╗██║  ██║   ██║   ██║  ██║██║ ╚████║██║  ██║
-        ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝
-                         Options  
-                        \u001b[0m[\u001b[91m1\u001b[0m]\u001b[34m Raid   
-                        \u001b[0m[\u001b[91m2\u001b[0m]\u001b[34m Raid + Spam   
-                        \u001b[0m[\u001b[91m3\u001b[0m]\u001b[34m Spam        
-""" 
-    
+    logo = """\\u001b[95m\x1f        ██╗  ██╗ █████╗ ████████╗ █████╗ ███╗   ██╗ █████╗ \x1f        ██║ ██╔╝██╔══██╗╚══██╔══╝██╔══██╗████╗  ██║██╔══██╗\x1f        █████╔╝ ███████║   ██║   ███████║██╔██╗ ██║███████║\x1f        ██╔═██╗ ██╔══██║   ██║   ██╔══██║██║╚██╗██║██╔══██║\x1f        ██║  ██╗██║  ██║   ██║   ██║  ██║██║ ╚████║██║  ██║\x1f        ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝\x1f                         Options  \x1f                        \\u001b[0m[\\u001b[91m1\\u001b[0m]\\u001b[34m Raid   \x1f                        \\u001b[0m[\\u001b[91m2\\u001b[0m]\\u001b[34m Raid + Spam   \x1f                        \\u001b[0m[\\u001b[91m3\\u001b[0m]\\u001b[34m Spam        \x1f"""
+     
+
     while True:
         os.system(f"title Katana Detected {tokens_amount} tokens by Cloud ☆ﾟ.*･｡ﾟ#8294")
         clearConsole()
@@ -184,16 +173,16 @@ def menu():
             inviteCode = input("> \u001b[95m")
             guild_name = GetGuildName(inviteCode=inviteCode)
             os.system(f"title Katana Detected {tokens_amount} tokens Raiding {guild_name} by Cloud ☆ﾟ.*･｡ﾟ#8294")
-            url = "https://discord.com/api/v9/invites/" + inviteCode
+            url = f"https://discord.com/api/v9/invites/{inviteCode}"
         elif mainMenu == "2":
             Join = True
             Spam = True
-            url = "https://discord.com/api/v9/invites/" + inviteCode
+            url = f"https://discord.com/api/v9/invites/{inviteCode}"
             print("\u001b[95mInvite Code\u001b[0m")
             inviteCode = input("> \u001b[95m")
             guild_name = GetGuildName(inviteCode=inviteCode)
             os.system(f"title Katana  Detected {tokens_amount} tokens  Raiding {guild_name}  by Cloud ☆ﾟ.*･｡ﾟ#8294")
-            
+
 
             print("\u001b[95mMessage\u001b[0m")
             message = input("> \u001b[95m")
@@ -227,9 +216,9 @@ def menu():
         break
     print("\u001b[33mThreaded (y/n)?")
     ThreadMenu = input("> \u001b[33m").lower()
-    working = []
     if ThreadMenu == 'y':
-    
+
+        working = []
         for _ in range(len(all)-1):
             t1 = threading.Thread(target=main)
             time.sleep(random.randint(1, 2))

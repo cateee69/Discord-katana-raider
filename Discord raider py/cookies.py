@@ -6,7 +6,9 @@ def get_cookies():
     for cookie in res:
         if cookie.name == "__dcfduid":
             Cookie_Dcfduid = cookie.value
-        if cookie.name == "__sdcfduid":
+        elif cookie.name == "__sdcfduid":
             Cookie_Sdcfduid = cookie.value
-    Cookies = "__dcfduid=" + Cookie_Dcfduid + "; " + "__sdcfduid=" + Cookie_Sdcfduid + "; " + "locale=us"
-    return Cookies
+    return (
+        f"__dcfduid={Cookie_Dcfduid}; __sdcfduid={Cookie_Sdcfduid}; "
+        + "locale=us"
+    )
